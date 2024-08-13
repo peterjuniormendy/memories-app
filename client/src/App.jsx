@@ -1,13 +1,47 @@
-import { useState } from "react";
+import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
+import Form from "./components/Form/Form.jsx";
+import Posts from "./components/Posts/Posts.jsx";
+import memories from "/memories.png";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <h1>App React</h1>
-    </>
+    <Container maxWidth="lg">
+      <AppBar className="appBar" position="static" color="inherit">
+        <Typography
+          className="heading"
+          variant="h2"
+          align="center"
+          color="black"
+        >
+          Memories
+        </Typography>
+        <img
+          className="image"
+          src={memories}
+          alt="memories"
+          height="100"
+          width="100"
+        />
+      </AppBar>
+      <Grow in>
+        <Container>
+          <Grid
+            container
+            justify="space-between"
+            alignItems="stretch"
+            spacing={3}
+          >
+            <Grid item xs={12} sm={7}>
+              <Posts />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Form />
+            </Grid>
+          </Grid>
+        </Container>
+      </Grow>
+    </Container>
   );
 }
 
