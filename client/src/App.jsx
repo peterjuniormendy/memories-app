@@ -10,7 +10,7 @@ function App() {
       <AppBar className="appBar" position="static" color="inherit">
         <Typography
           className="heading"
-          variant="h2"
+          variant="h3"
           align="center"
           color="black"
         >
@@ -20,8 +20,8 @@ function App() {
           className="image"
           src={memories}
           alt="memories"
-          height="100"
-          width="100"
+          height="60"
+          width="60"
         />
       </AppBar>
       <Grow in>
