@@ -1,21 +1,12 @@
-import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
-import Form from "./components/Form/Form.jsx";
-import Posts from "./components/Posts/Posts.jsx";
+import Form from "./components/Form/Form";
+import Posts from "./components/Posts/Posts";
 import memories from "/memories.png";
-import "./App.css";
 
 function App() {
   return (
-    <Container maxWidth="lg">
-      <AppBar className="appBar" position="static" color="inherit">
-        <Typography
-          className="heading"
-          variant="h3"
-          align="center"
-          color="black"
-        >
-          Memories
-        </Typography>
+    <div className="max-w-2xl mx-auto mt-28 w-full bg-slate-50 rounded-xl p-2 shadow-lg">
+      <div className="w-full p-4 flex gap-3 items-center justify-center static bg-inherit">
+        <h1 className="text-black text-5xl">Memories</h1>
         <img
           className="image"
           src={memories}
@@ -23,25 +14,20 @@ function App() {
           height="60"
           width="60"
         />
-      </AppBar>
-      <Grow in>
-        <Container>
-          <Grid
-            container
-            justify="space-between"
-            alignItems="stretch"
-            spacing={3}
-          >
-            <Grid item xs={12} sm={7}>
+      </div>
+      <div className="w-full">
+        <div>
+          <div className="flex flex-col lg:flex-row justify-between items-stretch gap-4">
+            <div className="flex-1">
               <Posts />
-            </Grid>
-            <Grid item xs={12} sm={4}>
+            </div>
+            <div className="basis-1/3">
               <Form />
-            </Grid>
-          </Grid>
-        </Container>
-      </Grow>
-    </Container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
