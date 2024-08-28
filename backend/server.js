@@ -10,12 +10,12 @@ import postRoutes from "./routes/post.js";
 
 const app = express();
 
-// USE ROUTES
-app.use("/posts", postRoutes);
-
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+
+// USE ROUTES
+app.use("/posts", postRoutes);
 
 const PORT = process.env.PORT || 5000;
 const DB_URI = process.env.DB_URL;
