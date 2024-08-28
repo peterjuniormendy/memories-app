@@ -1,8 +1,13 @@
+import { useDispatch, useSelector } from "react-redux";
 import Form from "./components/Form/Form";
 import Posts from "./components/Posts/Posts";
+import { addPost } from "./slice/postSlice";
 import memories from "/memories.png";
 
 function App() {
+  const posts = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+
   return (
     <div className="max-w-2xl mx-auto mt-28 w-full bg-slate-50 rounded-xl p-2 shadow-lg">
       <div className="w-full p-4 flex gap-3 items-center justify-center static bg-inherit">
@@ -19,6 +24,27 @@ function App() {
         <div>
           <div className="flex flex-col lg:flex-row justify-between items-stretch gap-4">
             <div className="flex-1">
+              <button
+                onClick={() =>
+                  dispatch(
+                    addPost({
+                      id: new Date().toISOString(),
+                      title: "Test",
+                      message: "this is a post",
+                    })
+                  )
+                }
+              >
+                add post
+              </button>
+              <div>
+                <ul>
+                  {posts?.length > 0 &&
+                    posts.map((post) => (
+                      <li key={post.id}>{`${post.title}: ${post.message}`}</li>
+                    ))}
+                </ul>
+              </div>
               <Posts />
             </div>
             <div className="basis-1/3">
