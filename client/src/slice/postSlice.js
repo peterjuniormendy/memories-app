@@ -8,9 +8,7 @@ const postSlice = createSlice({
       return state;
     },
     addPost(state, action) {
-      state.push({
-        ...action.payload,
-      });
+      return [...state, action.payload];
     },
   },
 });

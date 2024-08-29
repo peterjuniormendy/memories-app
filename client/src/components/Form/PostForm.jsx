@@ -6,6 +6,7 @@ import { CustomTextInput } from "../../generic/CustomTextInput";
 import { useDispatch } from "react-redux";
 import CustomTextAreaInput from "../../generic/CustomTextAreaInput";
 import CustomButton from "../../generic/CustomButton";
+import { createPost } from "../../controllers/post";
 
 const PostForm = () => {
   const dispatch = useDispatch();
@@ -21,12 +22,14 @@ const PostForm = () => {
           file: "",
         }}
         onSubmit={async (values, { resetForm }) => {
+          // event.preventDefault();
           values.file = file;
-          setTimeout(() => {
-            console.log(values);
-            dispatch(addPost(values));
-          }, [1000]);
-          resetForm(); // Reset the form after submission
+          console.log("values", values);
+          // dispatch(addPost(values));
+
+          await createPost(values, dispatch);
+
+          resetForm();
           setFile("");
         }}
       >
