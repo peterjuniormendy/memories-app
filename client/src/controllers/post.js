@@ -13,6 +13,7 @@ export const getAllPost = async (dispatch) => {
 export const createPost = async (post, dispatch) => {
   try {
     const { data } = await api.createPost(post);
+    console.log("post", post);
     dispatch(addPost(data));
   } catch (error) {
     console.log(error.response?.data?.message || error.message);
