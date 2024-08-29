@@ -1,55 +1,80 @@
-import React from "react";
-import { useFormik, Form, Field, ErrorMessage } from "formik";
+import React, { useState } from "react";
+import { useFormik, Form, Formik } from "formik";
 import FileBase from "react-file-base64";
 import { addPost } from "../../slice/postSlice";
 import { CustomTextInput } from "../../generic/CustomTextInput";
+import { useDispatch } from "react-redux";
+import CustomTextAreaInput from "../../generic/CustomTextAreaInput";
+import CustomButton from "../../generic/CustomButton";
 
 const PostForm = () => {
-  const formik = useFormik({
-    initialValues: {
-      creator: "",
-      title: "",
-      message: "",
-      tags: "",
-      file: "",
-    },
-    onSubmit: (values, { resetForm }) => {
-      console.log(values);
-      dispatch(addPost(values));
-      resetForm(); // Reset the form after submission
-    },
-  });
+  const dispatch = useDispatch();
+  const [file, setFile] = useState("");
   return (
     <>
-      <Form onSubmit={formik.handleSubmit}>
-        <>
-          <label htmlFor="creator">Creator</label>
-          <Field name="creator" type="text" />
-          <ErrorMessage name="creator" />
-        </>
-        {/* <CustomTextInput label="Creator" name="creator" type="text" />
+      <Formik
+        initialValues={{
+          creator: "",
+          title: "",
+          message: "",
+          tags: "",
+          file: "",
+        }}
+        onSubmit={async (values, { resetForm }) => {
+          values.file = file;
+          setTimeout(() => {
+            console.log(values);
+            dispatch(addPost(values));
+          }, [1000]);
+          resetForm(); // Reset the form after submission
+          setFile("");
+        }}
+      >
+        {({ setFieldValue, resetForm, isSubmitting }) => (
+          <Form className="p-4">
+            <h2 className="text-gray-900 text-center text-xl font-medium">
+              Create Post
+            </h2>
+            <CustomTextInput label="Creator" name="creator" type="text" />
 
-        <CustomTextInput label="Title" name="title" type="text" />
+            <CustomTextInput label="Title" name="title" type="text" />
 
-        <CustomTextInput label="Message" name="message" type="textarea" />
+            <CustomTextAreaInput label="Message" name="message" />
 
-        <CustomTextInput label="Tags" name="tags" type="text" />
+            <CustomTextInput label="Tags" name="tags" type="text" />
 
-        <div>
-          <FileBase
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) => formik.setFieldValue("file", base64)}
-          />
-        </div> */}
+            <div className="mt-6">
+              <FileBase
+                id="file"
+                type="file"
+                multiple={false}
+                onDone={({ base64 }) => {
+                  // setFieldValue("file", base64);
+                  setFile(base64);
+                }}
+              />
+            </div>
 
-        <div className="flex justify-between items-center mt-4">
-          <button type="button" onClick={formik.handleReset}>
-            Reset
-          </button>
-          <button type="submit">Submit</button>
-        </div>
-      </Form>
+            <div className="flex justify-between items-center mt-5">
+              <CustomButton
+                type={"reset"}
+                onClick={() => {
+                  resetForm();
+                  setFile("");
+                }}
+                className="bg-slate-200 ring-2 ring-slate-300"
+                children="Reset"
+              />
+              <CustomButton
+                type={"submit"}
+                disabled={isSubmitting}
+                className="bg-green-600 text-white"
+                children="Submit"
+              />
+            </div>
+          </Form>
+        )}
+      </Formik>
     </>
   );
 };
