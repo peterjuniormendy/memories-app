@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useFormik, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import FileBase from "react-file-base64";
-import { addPost } from "../../slice/postSlice";
 import { CustomTextInput } from "../../generic/CustomTextInput";
 import { useDispatch } from "react-redux";
 import CustomTextAreaInput from "../../generic/CustomTextAreaInput";
@@ -19,17 +18,14 @@ const PostForm = () => {
           title: "",
           message: "",
           tags: "",
-          file: "",
+          selectedFile: "",
         }}
-        onSubmit={async (values, { resetForm }) => {
-          // event.preventDefault();
-          values.file = file;
-          console.log("values", values);
-          // dispatch(addPost(values));
+        onSubmit={async (values) => {
+          values.selectedFile = file;
+          const result = await createPost(values, dispatch);
+          console.log("result", result);
 
-          await createPost(values, dispatch);
-
-          resetForm();
+          // resetForm();
           setFile("");
         }}
       >

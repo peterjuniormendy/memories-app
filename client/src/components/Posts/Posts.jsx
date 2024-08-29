@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../../slice/postSlice.js";
+import { getAllPost } from "../../controllers/post.js";
 import Post from "./Post/Post.jsx";
 
 const Posts = () => {
@@ -8,7 +8,7 @@ const Posts = () => {
   const post = useSelector((state) => state.post);
 
   useEffect(() => {
-    dispatch(getPosts());
+    getAllPost(dispatch);
   }, [dispatch]);
 
   console.log("post", post);
