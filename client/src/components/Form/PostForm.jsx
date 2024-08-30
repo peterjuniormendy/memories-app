@@ -26,7 +26,7 @@ const PostForm = () => {
         }}
       >
         {({ setFieldValue, isSubmitting }) => (
-          <Form className="p-4">
+          <Form className="bg-white rounded-lg px-4 py-7">
             <h2 className="text-gray-900 text-center text-xl font-medium">
               Create Post
             </h2>
