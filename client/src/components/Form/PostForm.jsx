@@ -39,9 +39,9 @@ const PostForm = ({ currentId, setCurrentId }) => {
         initialValues={initialValues}
         onSubmit={async (values, { resetForm }) => {
           if (currentId) {
-            const result = await updatePost(currentId, values, dispatch);
+            await updatePost(currentId, values, dispatch);
           } else {
-            const result = await createPost(values, dispatch);
+            await createPost(values, dispatch);
           }
           resetForm();
           setInitialValues({

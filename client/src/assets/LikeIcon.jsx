@@ -10,11 +10,11 @@ const LikeIcon = ({ bg }) => {
       fill="708090"
       stroke="708090"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -25,8 +25,8 @@ const LikeIcon = ({ bg }) => {
           transform="translate(-80.021 -214.131)"
           fill={bg}
           stroke="#ccc"
-          stroke-linejoin="round"
-          stroke-width="2.63095"
+          strokeLinejoin="round"
+          strokeWidth="2.63095"
         ></path>{" "}
       </g>
     </svg>

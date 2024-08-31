@@ -14,8 +14,6 @@ function App() {
     getAllPost(dispatch);
   }, [dispatch, currentId]);
 
-  console.log("currentId", currentId);
-
   return (
     <div className="max-w-5xl mx-auto mt-28 w-full bg-slate-50 rounded-xl p-2 shadow-lg">
       <div className="w-full p-4 flex gap-3 items-center justify-center static bg-inherit">

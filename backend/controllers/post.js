@@ -23,10 +23,8 @@ export const createPost = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
-  console.log("coming here!!!");
   const { id: _id } = req.params;
   const post = req.body;
-  console.log("id", _id);
 
   // check if id is valid
   if (!mongoose.Types.ObjectId.isValid(_id))

@@ -38,8 +38,8 @@ const Post = ({ post, setCurrentId }) => {
           className="text-slate-500 text-base mb-5 break-words
         "
         >
-          {post.tags.map((tag) => (
-            <span className="pr-2">{`#${tag}`}</span>
+          {post.tags.map((tag, index) => (
+            <span key={index} className="pr-2">{`#${tag}`}</span>
           ))}
         </p>
         <div className="flex justify-between items-center">
