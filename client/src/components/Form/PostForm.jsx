@@ -1,34 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import FileBase from "react-file-base64";
 import { CustomTextInput } from "../../generic/CustomTextInput";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CustomTextAreaInput from "../../generic/CustomTextAreaInput";
 import CustomButton from "../../generic/CustomButton";
-import { createPost } from "../../controllers/post";
+import { createPost, updatePost } from "../../controllers/post";
 
-const PostForm = () => {
+const PostForm = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
+  const post = useSelector(({ post }) =>
+    post.find((p) => (p._id === currentId ? p : null))
+  );
+  const [initialValues, setInitialValues] = useState({
+    creator: "",
+    title: "",
+    message: "",
+    tags: "",
+    selectedFile: "",
+  });
+
+  useEffect(() => {
+    if (post) {
+      setInitialValues({
+        creator: post.creator || "",
+        title: post.title || "",
+        message: post.message || "",
+        tags: post.tags || "",
+        selectedFile: post.selectedFile || "",
+      });
+    }
+  }, [post]);
+
   return (
     <>
       <Formik
-        initialValues={{
-          creator: "",
-          title: "",
-          message: "",
-          tags: "",
-          selectedFile: "",
-        }}
+        enableReinitialize={true}
+        initialValues={initialValues}
         onSubmit={async (values, { resetForm }) => {
-          const result = await createPost(values, dispatch);
-          console.log("result", result);
+          if (currentId) {
+            const result = await updatePost(currentId, values, dispatch);
+          } else {
+            const result = await createPost(values, dispatch);
+          }
           resetForm();
+          setInitialValues({
+            creator: "",
+            title: "",
+            message: "",
+            tags: "",
+            selectedFile: "",
+          });
+          setCurrentId(null);
         }}
       >
         {({ setFieldValue, isSubmitting }) => (
           <Form className="bg-white rounded-lg px-4 py-7">
             <h2 className="text-gray-900 text-center text-xl font-medium">
-              Create Post
+              {currentId ? "Updating" : "Creating"} Post
             </h2>
             <CustomTextInput label="Creator" name="creator" type="text" />
 

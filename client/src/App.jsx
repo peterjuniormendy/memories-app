@@ -1,17 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "./components/Form/PostForm";
 import Posts from "./components/Posts/Posts";
-import { addPost } from "./slice/postSlice";
+import { getAllPost } from "./controllers/post";
 import memories from "/memories.png";
 
 function App() {
-  const posts = useSelector((state) => state.post);
   const dispatch = useDispatch();
+  const posts = useSelector((state) => state.post);
+  const [currentId, setCurrentId] = useState("");
 
   useEffect(() => {
-    dispatch;
-  }, [dispatch]);
+    getAllPost(dispatch);
+  }, [dispatch, currentId]);
+
+  console.log("currentId", currentId);
 
   return (
     <div className="max-w-5xl mx-auto mt-28 w-full bg-slate-50 rounded-xl p-2 shadow-lg">
@@ -29,10 +32,10 @@ function App() {
         <div>
           <div className="p-4 flex flex-col lg:flex-row justify-between items-stretch gap-6">
             <div className="flex-1">
-              <Posts />
+              <Posts posts={posts} setCurrentId={setCurrentId} />
             </div>
             <div className="basis-1/3">
-              <Form />
+              <Form currentId={currentId} setCurrentId={setCurrentId} />
             </div>
           </div>
         </div>
