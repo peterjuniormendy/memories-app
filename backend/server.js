@@ -19,7 +19,7 @@ app.use("/posts", postRoutes);
 const PORT = process.env.PORT || 5000;
 const DB_URI = process.env.DB_URL;
 
-//
+// Connect to the DB
 mongoose
   .connect(DB_URI)
   .then(() =>
