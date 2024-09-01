@@ -16,7 +16,7 @@ const PostForm = ({ currentId, setCurrentId }) => {
     creator: "",
     title: "",
     message: "",
-    tags: "",
+    tags: [],
     selectedFile: "",
   });
 
@@ -26,7 +26,7 @@ const PostForm = ({ currentId, setCurrentId }) => {
         creator: post.creator || "",
         title: post.title || "",
         message: post.message || "",
-        tags: post.tags || "",
+        tags: [...post.tags] || [],
         selectedFile: post.selectedFile || "",
       });
     }
@@ -38,6 +38,7 @@ const PostForm = ({ currentId, setCurrentId }) => {
         enableReinitialize={true}
         initialValues={initialValues}
         onSubmit={async (values, { resetForm }) => {
+          // return console.log("values", values);
           if (currentId) {
             await updatePost(currentId, values, dispatch);
           } else {
@@ -48,7 +49,7 @@ const PostForm = ({ currentId, setCurrentId }) => {
             creator: "",
             title: "",
             message: "",
-            tags: "",
+            tags: [],
             selectedFile: "",
           });
           setCurrentId(null);
@@ -65,7 +66,14 @@ const PostForm = ({ currentId, setCurrentId }) => {
 
             <CustomTextAreaInput label="Message" name="message" />
 
-            <CustomTextInput label="Tags" name="tags" type="text" />
+            <CustomTextInput
+              label="Tags"
+              name="tags"
+              type="text"
+              onChange={(e) => {
+                setFieldValue("tags", e.target.value.split(","));
+              }}
+            />
 
             <div className="mt-6">
               <FileBase

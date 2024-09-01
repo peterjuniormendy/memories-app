@@ -29,10 +29,10 @@ function App() {
       <div className="w-full">
         <div>
           <div className="p-4 flex flex-col lg:flex-row justify-between items-stretch gap-6">
-            <div className="flex-1">
+            <div className="flex-1 order-2 lg:order-1">
               <Posts posts={posts} setCurrentId={setCurrentId} />
             </div>
-            <div className="basis-1/3">
+            <div className="basis-1/3 order-1 lg:order-2">
               <Form currentId={currentId} setCurrentId={setCurrentId} />
             </div>
           </div>

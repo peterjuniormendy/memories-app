@@ -2,10 +2,22 @@ import React, { useState } from "react";
 import { HiMiniTrash, HiOutlineEllipsisHorizontal } from "react-icons/hi2";
 import moment from "moment";
 import LikeIcon from "../../../assets/LikeIcon";
+import { deletePost, getAllPost, likePost } from "../../../controllers/post";
+import { useDispatch } from "react-redux";
+import { FcLike } from "react-icons/fc";
 
 const Post = ({ post, setCurrentId }) => {
-  const [isLike, setIsLike] = useState(false);
-  const bgColor = isLike ? "#00f" : "#fff";
+  const dispatch = useDispatch();
+
+  const deletePostHandler = async (id) => {
+    const data = await deletePost(id, dispatch);
+    data?.status == 200 && getAllPost(dispatch);
+  };
+
+  const likePostHandler = async (id) => {
+    const data = await likePost(id);
+    data?.status == 200 && getAllPost(dispatch);
+  };
 
   return (
     <div className="w-full rounded-md shadow-lg">
@@ -33,26 +45,28 @@ const Post = ({ post, setCurrentId }) => {
         <h2 className="text-slate-500 text-base font-semibold capitalize">
           {post.title}
         </h2>
-        <p className="text-slate-400">{post.message}</p>
+        <p className="text-slate-400 truncate">{post.message}</p>
         <p
           className="text-slate-500 text-base mb-5 break-words
         "
         >
-          {post.tags.map((tag, index) => (
+          {post?.tags?.map((tag, index) => (
             <span key={index} className="pr-2">{`#${tag}`}</span>
           ))}
         </p>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-baseline">
           <div className="flex items-center">
-            <div
-              onClick={() => setIsLike(!isLike)}
-              className="inline-block pr-2"
-            >
-              <LikeIcon bg={bgColor} />
-            </div>
-            <span className="text-lg text-slate-500">{post.likeCount}</span>
+            <FcLike
+              className="text-4xl pr-2"
+              onClick={() => likePostHandler(post._id)}
+            />
+
+            <span className="text-xl text-slate-500">{post.likeCount}</span>
           </div>
-          <HiMiniTrash className="text-2xl text-red-600" />
+          <HiMiniTrash
+            className="text-2xl text-red-600"
+            onClick={() => deletePostHandler(post._id)}
+          />
         </div>
       </div>
     </div>
