@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:5000/posts";
+const url = "https://memories-app-1uju.onrender.com/post";
 
 const headers = {
   "Content-Type": "application/json",
