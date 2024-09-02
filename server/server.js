@@ -13,6 +13,11 @@ app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
+// MAIN ROUTE
+app.get("/", (req, res) => {
+  res.send("Hello user!, welcome to the memories api ");
+});
+
 // USE ROUTES
 app.use("/posts", postRoutes);
 
